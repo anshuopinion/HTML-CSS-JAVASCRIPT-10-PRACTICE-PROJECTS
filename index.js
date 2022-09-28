@@ -1,76 +1,74 @@
-const projectContainer = document.querySelector(".project_container");
+const url = "https://api.github.com/users";
+const searchInputEl = document.getElementById("searchInput");
+const searchButtonEl = document.getElementById("searchBtn");
+const profileContainerEl = document.getElementById("profileContainer");
+const loadingEl = document.getElementById("loading");
 
-const projects = [
-  {
-    image: "images/p1.png",
-    title: "Life Timer App",
-    url: "../project1-fix/index.html",
-  },
-  {
-    image: "images/p2.png",
-    title: "Github User Search App",
-    url: "../project2/index.html",
-  },
-  {
-    image: "images/p3.png",
-    title: "Percentage Calculator App",
-    url: "../project3/index.html",
-  },
-  {
-    image: "images/p4.png",
-    title: "Math Quiz App",
-    url: "../project4.2/index.html",
-  },
-  {
-    image: "images/p5.png",
-    title: "Search & Filters Product App",
-    url: "../project5/index.html",
-  },
-  {
-    image: "images/p6.png",
-    title: "Color Generator App",
-    url: "../project6/index.html",
-  },
-  {
-    image: "images/p7.png",
-    title: "QR Code Generator App",
-    url: "../project7/index.html",
-  },
-  {
-    image: "images/p8.png",
-    title: "Expense Tracker App",
-    url: "../project8.3/index.html",
-  },
-  {
-    image: "images/p9.png",
-    title: "Password Generator App",
-    url: "../project9/index.html",
-  },
-  {
-    image: "images/p10.png",
-    title: "Drawer + Dropdown",
-    url: "../project10/index.html",
-  },
-];
+const generateProfile = (profile) => {
+  return `
+   <div class="profile-box">
+   <div class="top-section">
+     <div class="left">
+       <div class="avatar">
+         <img alt="avatar" src="${profile.avatar_url}" />
+       </div>
+       <div class="self">
+         <h1>${profile.name}</h1>
+         <h1>@${profile.login}</h1>
+       </div>
+     </div>
+     <a href="${profile.html_url}" target="_black">
+     <button class="primary-btn">Check Profile</button>
+     </a>
+   </div>
 
-const showProjects = () => {
-  let output = "";
-  projects.forEach(
-    ({ image, title, url }, i) =>
-      (output += `
-      <div class="grid_item">
-      <div class="card">
-        <img src="${image}" alt="Project ${i}" />
-        <a href="${url}">
-          <div class="card_content">
-            <h3>${title}</h3>
-          </div>
-        </a>
-      </div>
-    </div>
-    `)
-  );
-  projectContainer.innerHTML = output;
+   <div class="about">
+     <h2>About</h2>
+     <p>
+     ${profile.bio}
+     </p>
+   </div>
+   <div class="status">
+     <div class="status-item">
+       <h3>Followers</h3>
+       <p>${profile.followers}</p>
+     </div>
+     <div class="status-item">
+       <h3>Followings</h3>
+       <p>${profile.following}</p>
+     </div>
+     <div class="status-item">
+       <h3>Repos</h3>
+       <p>${profile.public_repos}</p>
+     </div>
+   </div>
+ </div>
+   `;
 };
 
-showProjects();
+const fetchProfile = async () => {
+  const username = searchInputEl.value;
+
+  loadingEl.innerText = "loading.....";
+  loadingEl.style.color = "black";
+
+  try {
+    const res = await fetch(`${url}/${username}`);
+    const data = await res.json();
+    if (data.bio) {
+      loadingEl.innerText = "";
+      profileContainerEl.innerHTML = generateProfile(data);
+    } else {
+      loadingEl.innerHTML = data.message;
+      loadingEl.style.color = "red";
+      profileContainerEl.innerText = "";
+    }
+
+    console.log("data", data);
+  } catch (error) {
+    console.log({ error });
+    loadingEl.innerText = "";
+  }
+};
+
+searchButtonEl.addEventListener("click", fetchProfile);
