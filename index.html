@@ -4,12 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML CSS JAVASCRIPT PRACTICE PROJECT | Do Some Coding</title>
+    <title>myTunes Website</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
     <script
       src="https://kit.fontawesome.com/7a4b62b0a4.js"
       crossorigin="anonymous"
@@ -19,93 +15,184 @@
   <body>
     <header>
       <nav class="container">
-        <div class="logo">Do Some Coding Projects</div>
+        <div class="logo">myTunes</div>
         <ul>
           <a href="#hero">
-            <li>Home</li>
+            <li>Overview</li>
           </a>
-          <a href="#project">
-            <li>Projects</li>
+          <a href="#music">
+            <li>Music</li>
           </a>
-          <a href="#contact">
-            <li>Contact</li>
+          <a href="#video">
+            <li>Video</li>
+          </a>
+          <a href="#gift">
+            <li>Gift Cards</li>
           </a>
         </ul>
+
+        <div class="menu_bar" id="menuBar">
+          <i class="fa fa-bars"></i>
+        </div>
       </nav>
+
+      <div class="menu_mobile">
+        <div class="close_btn_container">
+          <button onclick="onClose()">Close</button>
+        </div>
+        <ul>
+          <a href="#hero" onclick="onClose()">
+            <li>Overview</li>
+          </a>
+          <a href="#music" onclick="onClose()">
+            <li>Music</li>
+          </a>
+          <a href="#video" onclick="onClose()">
+            <li>Video</li>
+          </a>
+          <a href="#gift" onclick="onClose()">
+            <li>Gift Cards</li>
+          </a>
+        </ul>
+      </div>
     </header>
     <main>
-      <section id="hero">
+      <section class="hero-section" id="hero">
         <div class="container">
-          <div class="hero_image animate__animated animate__bounceInLeft">
-            <img src="./images/hero.png" alt="hero image" />
-          </div>
-          <div class="hero_content">
-            <h1>
-              <span class="hi_text">HTML CSS</span>,
-              <span class="name_text">JAVASCRIPT</span>
-            </h1>
-            <h2>10 PRACTICE PROJECTS</h2>
-          </div>
+          <h1>my Tunes</h1>
+          <h3>Your music, movies, and TV shows take center stage.</h3>
+          <p>
+            myTunes is the best way to organize and enjoy the music, movies, and
+            TV shows you already have — and shop for the ones you want. Enjoy
+            all the entertainment myTunes has to offer on your Mac and PC.
+          </p>
         </div>
       </section>
-      <section id="project">
-        <h2>PROJECTS</h2>
-        <div class="container">
-          <div class="project_container"></div>
-        </div>
-      </section>
-      <section id="contact">
+      <section class="music-section" id="music">
         <div class="container">
           <h2>
-            <span class="hi_text">Follow Me</span> <br />
-            <span class="name_text">For more videos</span>
+            <span><i class="fa fa-music"></i></span>
+            Music
           </h2>
-          <div class="top_contact">
-            <a
-              target="_blank"
-              href="https://www.linkedin.com/in/anshuopinion/"
-              class="contact_way"
-            >
-              <i class="fa fa-linkedin"></i>
-              <h3>Linkedin</h3>
-            </a>
-            <a
-              target="_blank"
-              href="https://www.youtube.com/dosomecoding/"
-              class="contact_way"
-            >
-              <i class="fa fa-youtube"></i>
-              <h3>Youtube</h3>
-            </a>
-            <a
-              href="https://www.instagram.com/dosomecoding/"
-              target="_blank"
-              class="contact_way"
-            >
-              <i class="fa fa-instagram"></i>
-              <h3>Instagram</h3>
-            </a>
-          </div>
-          <div class="bottom_contact">
-            <a
-              target="_blank"
-              href="https://github.com/anshuopinion/HTML-CSS-JAVASCRIPT-10-PRACTICE-PROJECTS"
-              class="contact_way"
-            >
-              <i class="fab fa-github"></i>
-              <h3>Github</h3>
-            </a>
+          <h4>
+            Stream over 45 million songs, ad-free. Or download albums and tracks
+            to listen to offline. All the music in your personal myTunes library
+            — no matter where it came from — lives right alongside the Orange
+            Music catalog. Start your free three-month trial with no commitment,
+            and cancel anytime.
+          </h4>
+          <button class="primary-btn">Start Your Trail Now</button>
 
-            <div class="contact_way">
-              <i class="fa fa-mobile"></i>
-              <h3>Subscribe</h3>
-            </div>
+          <p>
+            Orange Music is available in myTunes, and for iOS and Android
+            devices.
+          </p>
+          <div class="ipad-iphone-img">
+            <img src="images/ipad-iphone.png" alt="iphone ipad" />
           </div>
         </div>
       </section>
+      <section class="about-music container">
+        <h3>The movie and TV collection you always wished for. Granted.</h3>
+        <p>
+          With over 100,000 movies and TV shows to choose from, there’s always
+          something great to watch on myTunes and if you watch on Orange TV 4K,
+          you’ll be able to enjoy a tremendous selection of your favorite
+          content in 4K HDR. So get ready to enjoy episodes of your favorite TV
+          shows or hit movies you’ve been waiting to see — anytime, anywhere.
+          Just tap to play, or even download if you’re going somewhere you won’t
+          have Wi-Fi.
+        </p>
+        <button class="secondary-btn">Read more</button>
+        <div class="mac-img">
+          <img src="images/mac.png" alt="macbook" />
+        </div>
+      </section>
+      <section class="video-section" id="video">
+        <div class="container">
+          <h3>A world of entertainment. Available wherever you are.</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+            veniam nobis, nisi ut expedita, doloribus reprehenderit explicabo
+            non velit repellat alias saepe inventore repellendus? Molestias
+            suscipit eos tempora? Quae quaerat cumque in veritatis impedit
+            dolorum sapiente recusandae minima quo aperiam quam, excepturi quasi
+            totam ad quas? Ipsam laudantium soluta delectus!
+          </p>
+        </div>
+      </section>
+      <div class="container">
+        <section class="gift-section" id="gift">
+          <div class="gift-card">
+            <img src="images/gift_card.png" alt="gift card" />
+          </div>
+          <div class="gift-content">
+            <h3>Gift Card</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt
+              cum explicabo, excepturi eaque commodi minima quas repellendus
+              assumenda facere hic, earum quasi iste asperiores molestiae
+              obcaecati laborum, voluptatum alias velit cupiditate! Quae soluta
+              sapiente quasi, iusto quam magnam doloribus natus quod eius, rerum
+              asperiores aspernatur. Illum neque sequi odit fuga.
+            </p>
+            <p>Already have an Orange MyTunes Music Gift Card?</p>
+            <hr />
+            <div>
+              <button class="secondary-btn">Redeem</button>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
     <footer>
-      <div class="container">Created By Do Some Coding Channel</div>
+      <section class="footer-upper">
+        <div class="container">
+          <div class="footer-links">
+            <h4>Shop & Learn</h4>
+            <ul>
+              <li>Music</li>
+              <li>Movies</li>
+              <li>Shows</li>
+              <li>Apps</li>
+              <li>Gift Cards</li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Orange Store</h4>
+            <ul>
+              <li>Find a Store</li>
+              <li>Today at Orange</li>
+              <li>Financing</li>
+              <li>Orange Camp</li>
+              <li>Order Status</li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Education & Business</h4>
+            <ul>
+              <li>Orange & Education</li>
+              <li>Shop for Collage</li>
+              <li>Orange & Business</li>
+              <li>Shop for Business</li>
+              <li>Jobs</li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>About Orange</h4>
+            <ul>
+              <li>Newsroom</li>
+              <li>Orange Leadership</li>
+              <li>Investors</li>
+              <li>Envents</li>
+              <li>Contact Orange</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="footer-lower">
+        <p>Copyright © 2022 Do Some Coding</p>
+      </section>
     </footer>
   </body>
 </html>
