@@ -1,76 +1,128 @@
-const projectContainer = document.querySelector(".project_container");
-
-const projects = [
-  {
-    image: "images/p1.png",
-    title: "Life Timer App",
-    url: "../project1-fix/index.html",
-  },
-  {
-    image: "images/p2.png",
-    title: "Github User Search App",
-    url: "../project2/index.html",
-  },
-  {
-    image: "images/p3.png",
-    title: "Percentage Calculator App",
-    url: "../project3/index.html",
-  },
-  {
-    image: "images/p4.png",
-    title: "Math Quiz App",
-    url: "../project4.2/index.html",
-  },
-  {
-    image: "images/p5.png",
-    title: "Search & Filters Product App",
-    url: "../project5/index.html",
-  },
-  {
-    image: "images/p6.png",
-    title: "Color Generator App",
-    url: "../project6/index.html",
-  },
-  {
-    image: "images/p7.png",
-    title: "QR Code Generator App",
-    url: "../project7/index.html",
-  },
-  {
-    image: "images/p8.png",
-    title: "Expense Tracker App",
-    url: "../project8.3/index.html",
-  },
-  {
-    image: "images/p9.png",
-    title: "Password Generator App",
-    url: "../project9/index.html",
-  },
-  {
-    image: "images/p10.png",
-    title: "Drawer + Dropdown",
-    url: "../project10/index.html",
-  },
-];
-
-const showProjects = () => {
-  let output = "";
-  projects.forEach(
-    ({ image, title, url }, i) =>
-      (output += `
-      <div class="grid_item">
-      <div class="card">
-        <img src="${image}" alt="Project ${i}" />
-        <a href="${url}">
-          <div class="card_content">
-            <h3>${title}</h3>
-          </div>
-        </a>
-      </div>
-    </div>
-    `)
-  );
-  projectContainer.innerHTML = output;
+const state = {
+  earnings: 0,
+  expense: 0,
+  net: 0,
+  transactions: [],
 };
 
-showProjects();
+let isUpdate = false;
+let tid;
+
+const transactionFormEl = document.getElementById("transactionForm");
+
+const renderTransactions = () => {
+  const transactionContainerEl = document.querySelector(".transactions");
+  const netAmountEl = document.getElementById("netAmount");
+  const earningEl = document.getElementById("earning");
+  const expenseEl = document.getElementById("expense");
+
+  const transactions = state.transactions;
+
+  let earning = 0;
+  let expense = 0;
+  let net = 0;
+  transactionContainerEl.innerHTML = "";
+  transactions.forEach((transaction) => {
+    const { id, amount, text, type } = transaction;
+    const isCredit = type === "credit" ? true : false;
+    const sign = isCredit ? "+" : "-";
+
+    const transactionEl = `
+     <div class="transaction" id="${id}">
+        <div class="content" onclick="showEdit(${id})">
+            <div class="left" >
+            <p>${text}</p>
+            <p>${sign} ₹ ${amount}</p>
+        </div>
+            <div class="status ${isCredit ? "credit" : "debit"}">${
+      isCredit ? "C" : "D"
+    }</div>
+        </div>
+        <div class="lower">
+        <div class="icon" onclick="handleUpdate(${id})">
+            <img src="./icons/pen.svg" alt="pen" />
+        </div>
+        <div class="icon" onclick="handleDelete(${id})">
+            <img src="./icons/trash.svg" alt="trash" />
+        </div>
+        </div>
+  </div>`;
+    earning += isCredit ? amount : 0;
+    expense += !isCredit ? amount : 0;
+    net = earning - expense;
+
+    transactionContainerEl.insertAdjacentHTML("afterbegin", transactionEl);
+  });
+
+  console.log({ net, earning, expense });
+
+  netAmountEl.innerHTML = `₹ ${net}`;
+  earningEl.innerHTML = `₹ ${earning}`;
+  expenseEl.innerHTML = `₹ ${expense}`;
+};
+
+const addTransaction = (e) => {
+  e.preventDefault();
+
+  const isEarn = e.submitter.id === "earnBtn" ? true : false;
+
+  const formData = new FormData(transactionFormEl);
+  const tData = {};
+
+  formData.forEach((value, key) => {
+    tData[key] = value;
+  });
+  const { text, amount } = tData;
+  const transaction = {
+    id: isUpdate ? tid : Math.floor(Math.random() * 1000),
+    text: text,
+    amount: +amount,
+    type: isEarn ? "credit" : "debit",
+  };
+
+  if (isUpdate) {
+    const tIndex = state.transactions.findIndex((t) => t.id === tid);
+
+    state.transactions[tIndex] = transaction;
+    isUpdate = false;
+    tid = null;
+  } else {
+    state.transactions.push(transaction);
+  }
+
+  renderTransactions();
+
+  transactionFormEl.reset();
+  console.log({ state });
+};
+
+const showEdit = (id) => {
+  console.log("id", id);
+
+  const selectedTransaction = document.getElementById(id);
+  const lowerEl = selectedTransaction.querySelector(".lower");
+
+  lowerEl.classList.toggle("showTransaction");
+};
+
+const handleUpdate = (id) => {
+  const transaction = state.transactions.find((t) => t.id === id);
+
+  const { text, amount } = transaction;
+  const textInput = document.getElementById("text");
+  const amountInput = document.getElementById("amount");
+  textInput.value = text;
+  amountInput.value = amount;
+  tid = id;
+  isUpdate = true;
+};
+
+const handleDelete = (id) => {
+  const filteredTransaction = state.transactions.filter((t) => t.id !== id);
+
+  state.transactions = filteredTransaction;
+  renderTransactions();
+};
+
+renderTransactions();
+transactionFormEl.addEventListener("submit", addTransaction);
