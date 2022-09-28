@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+:root {
+  --primary: #8f00ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+.background {
+  background-image: url(background.png);
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+
+.box {
+  background: rgba(240, 240, 240, 0.68);
+  border-width: 0px 2px 1px 0px;
+  border-style: solid;
+  border-color: #fcddec;
+  box-shadow: 0px 19px 41px rgba(0, 0, 0, 0.36);
+  border-radius: 20px;
+  height: 320px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 50px;
+}
+
+.box h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  color: var(--primary);
+}
+.box h3 {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 54px;
+}
+
+#questionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+#answerInput {
+  background: transparent;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+#answerInput:focus-visible {
+  outline: 1px solid var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.primary-btn {
+  height: 46px;
+  background-color: var(--primary);
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-size: 32px;
+}
+
+@media (max-width: 786px) {
+  .box {
+    width: 80%;
+    height: 360px;
+    padding: 20px;
+  }
+  .box h2 {
+    font-size: 28px;
+    line-height: 40px;
+    color: var(--primary);
+  }
+  .box h3 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  #answerInput {
+    padding: 5px 20px;
+  }
+  .primary-btn {
+    font-size: 24px;
+    height: 36px;
+  }
+}
