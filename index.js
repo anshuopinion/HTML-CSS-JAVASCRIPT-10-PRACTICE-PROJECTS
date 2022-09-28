@@ -1,76 +1,48 @@
-const projectContainer = document.querySelector(".project_container");
+// Create a Math question
+// Math question will have a random generated
+// Question Type Multiplicatin question  with random number range 1-10
+// Answer will be the product of the random number range and the random number range
+// User will have to answer question
+// On submit  answer answer will be compared with random generated answer
+// If answer will be correct than score will be incremented
+// If answer will be wrong than score will be decremented
 
-const projects = [
-  {
-    image: "images/p1.png",
-    title: "Life Timer App",
-    url: "../project1-fix/index.html",
-  },
-  {
-    image: "images/p2.png",
-    title: "Github User Search App",
-    url: "../project2/index.html",
-  },
-  {
-    image: "images/p3.png",
-    title: "Percentage Calculator App",
-    url: "../project3/index.html",
-  },
-  {
-    image: "images/p4.png",
-    title: "Math Quiz App",
-    url: "../project4.2/index.html",
-  },
-  {
-    image: "images/p5.png",
-    title: "Search & Filters Product App",
-    url: "../project5/index.html",
-  },
-  {
-    image: "images/p6.png",
-    title: "Color Generator App",
-    url: "../project6/index.html",
-  },
-  {
-    image: "images/p7.png",
-    title: "QR Code Generator App",
-    url: "../project7/index.html",
-  },
-  {
-    image: "images/p8.png",
-    title: "Expense Tracker App",
-    url: "../project8.3/index.html",
-  },
-  {
-    image: "images/p9.png",
-    title: "Password Generator App",
-    url: "../project9/index.html",
-  },
-  {
-    image: "images/p10.png",
-    title: "Drawer + Dropdown",
-    url: "../project10/index.html",
-  },
-];
-
-const showProjects = () => {
-  let output = "";
-  projects.forEach(
-    ({ image, title, url }, i) =>
-      (output += `
-      <div class="grid_item">
-      <div class="card">
-        <img src="${image}" alt="Project ${i}" />
-        <a href="${url}">
-          <div class="card_content">
-            <h3>${title}</h3>
-          </div>
-        </a>
-      </div>
-    </div>
-    `)
-  );
-  projectContainer.innerHTML = output;
+const questionEl = document.getElementById("question");
+const questionFormEl = document.getElementById("questionForm");
+const scoreEl = document.getElementById("score");
+let storedAnswer;
+let score = 0;
+const randomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-showProjects();
+const generateQuestion = () => {
+  const randomNumber1 = randomNumber(1, 10);
+  const randomNumber2 = randomNumber(1, 10);
+  const question = `Q. What is ${randomNumber1} multiply by ${randomNumber2} ?`;
+  const answer = randomNumber1 * randomNumber2;
+  return { question, answer };
+};
+
+const showQuestion = () => {
+  const { question, answer } = generateQuestion();
+  questionEl.innerText = question;
+  storedAnswer = answer;
+};
+showQuestion();
+
+const checkAnswer = (event) => {
+  event.preventDefault();
+  const formData = new FormData(questionFormEl);
+
+  const userAnswer = +formData.get("answer");
+  if (userAnswer === storedAnswer) {
+    score += 1;
+  } else {
+    score -= 1;
+  }
+  scoreEl.innerText = score;
+  event.target.reset();
+  showQuestion();
+  console.log("answer", userAnswer);
+};
