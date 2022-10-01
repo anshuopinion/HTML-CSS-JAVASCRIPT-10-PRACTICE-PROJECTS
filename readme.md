@@ -1,4 +1,4 @@
-# HTML CSS JAVASCRIPT 10 PRACTICE PROJECTS
+# HTML CSS JAVASCRIPT 10 PRACTICE PROJECTS - Expense Tracker App
 
 ## Projects that we are going to build in this complete practice course
 
